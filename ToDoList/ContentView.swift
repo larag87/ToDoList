@@ -6,10 +6,13 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct ContentView: View {
     
     @State private var showNewTask = false
+    @Query var toDos: [ToDoItem]
+    
     
     var body: some View {
         VStack {
@@ -22,15 +25,19 @@ struct ContentView: View {
                     withAnimation{
                         showNewTask = true
                     }//end of animation
-                    showNewTask = true
                 }label:{
                     Text("+")
                         .font(.title)
                         .fontWeight(.bold)
                 }//end of button
-                
             }//end of HStack
             .padding()
+            List{
+                ForEach(toDos){ toDoItem in
+                    Text(toDoItem.title)
+                }
+            }//end of list
+            
         }//end of VStack
         Spacer()//push up
         if showNewTask {
