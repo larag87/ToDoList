@@ -34,18 +34,23 @@ struct ContentView: View {
             .padding()
             List{
                 ForEach(toDos){ toDoItem in
-                    Text(toDoItem.title)
+                    if toDoItem.isImportant{
+                        Text("‼️" + toDoItem.title)
+                    }else{
+                        Text(toDoItem.title)
+                    }
                 }
             }//end of list
-            
+            .listStyle(.plain)
         }//end of VStack
         Spacer()//push up
         if showNewTask {
-            NewToDo()
+            NewToDo(toDoItem: ToDoItem(title: "", isImportant: false))
         }//end of if-statement
     }
 }
 
 #Preview {
     ContentView()
+        .modelContainer(for: ToDoItem.self, inMemory:true)
 }
